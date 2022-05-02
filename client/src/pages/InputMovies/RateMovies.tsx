@@ -1,36 +1,37 @@
 /** @format */
 
-import React from "react";
-import MovieBox from "../../components/MovieBox";
+import React, { useState } from "react";
 import { Container } from "../../GlobalStyles";
-import { EnterMovies, Form } from "./RateMoviesStyles";
+import { Input, Form, Label } from "./RateMoviesStyles";
+import EnterMovies from "../../components/EnterMovies";
 
-function RateMovies() {
+const RateMovies = () => {
+	const sourceImg =
+		"https://image.tmdb.org/t/p/w500//pfte7wdMobMF4CVHuOxyu6oqeeA.jpg";
+	const titleMov = <h1>Add movie</h1>;
+
 	return (
 		<>
 			<h1>Your Favourite Top 5 Movies</h1>
 			<Container>
-				<MovieBox />
-				<MovieBox />
-				<MovieBox />
-				<MovieBox />
-				<MovieBox />
-				{/* <Form>
-				<label>Movie 1:</label>
 				<EnterMovies />
-				<label>Movie 2:</label>
 				<EnterMovies />
-				<label>Movie 3:</label>
 				<EnterMovies />
-				<label>Movie 4:</label>
 				<EnterMovies />
-				<label>Movie 5:</label>
 				<EnterMovies />
-				<input type="submit" value="Submit" />
-			</Form> */}
+				{/* <Label>1st Movie</Label>
+					<Input />
+					<Label>2nd Movie</Label>
+					<Input />
+					<Label>3rd Movie</Label>
+					<Input />
+					<Label>4th Movie</Label>
+					<Input />
+					<Label>5th Movie</Label>
+					<Input /> */}
 			</Container>
 		</>
 	);
-}
+};
 
 export default RateMovies;

@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Container } from "../GlobalStyles";
 import { Movie, Image, MovieTitle, Rank } from "./MovieBoxStyles";
 
@@ -9,16 +9,24 @@ interface Props {
 	title: string;
 	sno: string;
 }
-
 const MovieBoxStyles: FC<any> = (props) => {
+	const image =
+		"https://image.tmdb.org/t/p/w500//pfte7wdMobMF4CVHuOxyu6oqeeA.jpg";
+
 	return (
-		<Container>
-			<Movie>
-				<Rank>{props.sno}</Rank>
-				<Image src={props.source} alt="Failed to load" />
-				<MovieTitle>{props.title}</MovieTitle>
-			</Movie>
-		</Container>
+		<>
+			<Container>
+				<Movie>
+					<Rank>{props.sno}</Rank>
+					<Image
+						// style={props.add ? { opacity: "0" } : { opacity: "1" }}
+						src={image}
+						alt="Failed to load"
+					/>
+					<MovieTitle>{props.title}</MovieTitle>
+				</Movie>
+			</Container>
+		</>
 	);
 };
 
