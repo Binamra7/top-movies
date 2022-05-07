@@ -8,7 +8,7 @@ import HomePage from "./pages/HomePage/HomePage";
 
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import About from "./pages/About/About";
-import RateMovies from "./pages/InputMovies/RateMovies";
+import RateMovies from "./pages/Movies/RateMovies";
 
 function App() {
 	return (

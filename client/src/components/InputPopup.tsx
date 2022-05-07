@@ -1,12 +1,21 @@
 /** @format */
 
-import { Button, MoviesList } from "./InputPopupStyles";
+import {
+	Button,
+	MovieContainer,
+	MoviesList,
+	Label,
+	Form,
+} from "./InputPopupStyles";
 import { Input, Overlay } from "./InputPopupStyles";
-import React, { SetStateAction, useState } from "react";
-import { Form } from "../pages/InputMovies/RateMoviesStyles";
+import React, { FC, SetStateAction, useState } from "react";
 import Movies from "./Movies";
 
-const InputPopup = () => {
+interface props {
+	order: string;
+}
+
+const InputPopup: FC<props> = (props) => {
 	const [movieName, setMovieName] = useState("");
 	const [searchResults, setSearchResults] = useState([{}]);
 
@@ -21,35 +30,34 @@ const InputPopup = () => {
 		const res: any = await fetch(QUERY_URL).catch((err) => console.log(err));
 		const data = await res.json();
 		await setSearchResults(data.results);
-		console.log(QUERY_URL);
-		console.log(data.results);
+		// console.log(QUERY_URL);
+		// console.log(data.results);
 	};
 
 	const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
 		setMovieName(e.target.value);
 	};
-
-	// const handleSearch = () => {};
+	// console.log("Search result: ", searchResults, searchResults.length);
 	return (
-		<Overlay>
-			<form
-				onSubmit={handleSearch}
-				style={{ display: "flex", marginBottom: "10px" }}
-			>
-				<label>Enter movie name:</label>
+		<MovieContainer>
+			<Form onSubmit={handleSearch}>
+				<Label>Enter movie name:&nbsp; </Label>
 				<Input
 					placeholder="Enter here"
 					value={movieName}
 					onChange={handleChange}
 				/>
 				<Button value="submit">Search</Button>
-			</form>
+			</Form>
 			<MoviesList>
-				{searchResults.map((movie: any, i) => {
-                    return <Movies key={i} movie={movie} serial={i}/>;
-				})}
+				{searchResults.length > 1 &&
+					searchResults.map((movie: any, i) => {
+						return (
+							<Movies key={i} movie={movie} serial={i} order={props.order} />
+						);
+					})}
 			</MoviesList>
-		</Overlay>
+		</MovieContainer>
 	);
 };
 export default InputPopup;

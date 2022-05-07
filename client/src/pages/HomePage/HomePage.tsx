@@ -2,7 +2,7 @@
 
 import MovieBox from "../../components/MovieBox";
 import { Container } from "../../GlobalStyles";
-import { HomePageContainer, HomePageStyles } from "./HomePageStyles";
+import { HomePageContainer } from "./HomePageStyles";
 
 const HomePage = () => {
 	const sourceImg =

@@ -13,6 +13,11 @@ export const Movie = styled.div`
     background-color: white;
     box-shadow: 3px 3px 20px #3b3b3b;
     border-radius:10px;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        background-color:grey;
+        transition: 0.3s;
+    }
    
 `;
 

@@ -17,8 +17,7 @@ export const Movie = styled.div`
     display: grid;
     place-items: right;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    // display:flex;
-    // flex-direction: column;
+   
    
     @media (max-width: 768px) {
         grid-template-columns: 1fr 1fr 1fr 1fr;
