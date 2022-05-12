@@ -24,6 +24,11 @@ connection.once("open", () => {
 	console.log("MongoDB database connection established successfully");
 });
 
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+
+
 const movieRouter = require("./routes/movies");
 const movieRankRouter = require("./routes/movieRank");
 app.use("/api/movies", movieRankRouter);
