@@ -1,6 +1,7 @@
 /** @format */
 
 const router = require("express").Router();
+const { default: mongoose } = require("mongoose");
 let MovieRank = require("../models/movieRank.model");
 
 router.route("/").get((req, res) => {
@@ -28,40 +29,68 @@ router.route("/add").post((req, res) => {
 	const movieRank4 = { ...movie4, score: 4 };
 	const movieRank5 = { ...movie5, score: 2 };
 
-	const Rank1 = new MovieRank({
-		movie: movieRank1,
-	});
-	Rank1.save()
-		.then(() => res.json("Rank added!"))
-		.catch((err) => res.status(400).json("Error: " + err));
+	const db = mongoose.connection;
+	db.collection("movieranks").insertMany([
+		movieRank1,
+		movieRank2,
+		movieRank3,
+		movieRank4,
+		movieRank5,
+	]);
 
-	const Rank2 = new MovieRank({
-		movie: movieRank2,
-	});
-	Rank2.save()
-		.then(() => res.json("Rank added!"))
-		.catch((err) => res.status(400).json("Error: " + err));
+	res.json("Many Movie added!");
 
-	const Rank3 = new MovieRank({
-		movie: movieRank3,
-	});
-	Rank3.save()
-		.then(() => res.json("Rank added!"))
-		.catch((err) => res.status(400).json("Error: " + err));
+	// const newMovieRank = new MovieRank({
+	// 	movies: [
+	// 		{
+	// 			movie1: movieRank1,
+	// 			movie2: movieRank2,
+	// 			movie3: movieRank3,
+	// 			movie4: movieRank4,
+	// 			movie5: movieRank5,
+	// 		},
+	// 	],
+	// });
 
-	const Rank4 = new MovieRank({
-		movie: movieRank4,
-	});
-	Rank4.save()
-		.then(() => res.json("Rank added!"))
-		.catch((err) => res.status(400).json("Error: " + err));
+	// newMovieRank
+	// 	.save()
+	// 	.then(() => res.json("Movie added!"))
+	// 	.catch((err) => res.status(400).json("Error: " + err));
 
-	const Rank5 = new MovieRank({
-		movie: movieRank5,
-	});
-	Rank5.save()
-		.then(() => res.json("Rank added!"))
-		.catch((err) => res.status(400).json("Error: " + err));
+	// const Rank1 = new MovieRank({
+	// 	movie: movieRank1,
+	// });
+	// Rank1.save()
+	// 	.then(() => res.json("Rank added!"))
+	// 	.catch((err) => res.status(400).json("Error: " + err));
+
+	// const Rank2 = new MovieRank({
+	// 	movie: movieRank2,
+	// });
+	// Rank2.save()
+	// 	.then(() => res.json("Rank added!"))
+	// 	.catch((err) => res.status(400).json("Error: " + err));
+
+	// const Rank3 = new MovieRank({
+	// 	movie: movieRank3,
+	// });
+	// Rank3.save()
+	// 	.then(() => res.json("Rank added!"))
+	// 	.catch((err) => res.status(400).json("Error: " + err));
+
+	// const Rank4 = new MovieRank({
+	// 	movie: movieRank4,
+	// });
+	// Rank4.save()
+	// 	.then(() => res.json("Rank added!"))
+	// 	.catch((err) => res.status(400).json("Error: " + err));
+
+	// const Rank5 = new MovieRank({
+	// 	movie: movieRank5,
+	// });
+	// Rank5.save()
+	// 	.then(() => res.json("Rank added!"))
+	// 	.catch((err) => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;
