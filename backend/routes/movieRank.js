@@ -37,60 +37,7 @@ router.route("/add").post((req, res) => {
 		movieRank4,
 		movieRank5,
 	]);
-
 	res.json("Many Movie added!");
-
-	// const newMovieRank = new MovieRank({
-	// 	movies: [
-	// 		{
-	// 			movie1: movieRank1,
-	// 			movie2: movieRank2,
-	// 			movie3: movieRank3,
-	// 			movie4: movieRank4,
-	// 			movie5: movieRank5,
-	// 		},
-	// 	],
-	// });
-
-	// newMovieRank
-	// 	.save()
-	// 	.then(() => res.json("Movie added!"))
-	// 	.catch((err) => res.status(400).json("Error: " + err));
-
-	// const Rank1 = new MovieRank({
-	// 	movie: movieRank1,
-	// });
-	// Rank1.save()
-	// 	.then(() => res.json("Rank added!"))
-	// 	.catch((err) => res.status(400).json("Error: " + err));
-
-	// const Rank2 = new MovieRank({
-	// 	movie: movieRank2,
-	// });
-	// Rank2.save()
-	// 	.then(() => res.json("Rank added!"))
-	// 	.catch((err) => res.status(400).json("Error: " + err));
-
-	// const Rank3 = new MovieRank({
-	// 	movie: movieRank3,
-	// });
-	// Rank3.save()
-	// 	.then(() => res.json("Rank added!"))
-	// 	.catch((err) => res.status(400).json("Error: " + err));
-
-	// const Rank4 = new MovieRank({
-	// 	movie: movieRank4,
-	// });
-	// Rank4.save()
-	// 	.then(() => res.json("Rank added!"))
-	// 	.catch((err) => res.status(400).json("Error: " + err));
-
-	// const Rank5 = new MovieRank({
-	// 	movie: movieRank5,
-	// });
-	// Rank5.save()
-	// 	.then(() => res.json("Rank added!"))
-	// 	.catch((err) => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;
