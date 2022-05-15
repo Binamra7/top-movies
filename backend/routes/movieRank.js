@@ -1,41 +1,68 @@
-/** @format */
-
 const router = require("express").Router();
 const { default: mongoose } = require("mongoose");
 let MovieRank = require("../models/movieRank.model");
 
+const db = mongoose.connection;
+
 router.route("/").get((req, res) => {
-	MovieRank.find()
+	// MovieRank.find()
+	// 	.then((movies) => res.json(movies))
+	// 	.catch((err) => res.status(400).json("Error: " + err));
+	// db.collection("movieRanks")
+	// 	.find()
+	// 	.toArray()
+	// 	.then((movies) => res.json(movies))
+	// 	.catch((err) => res.status(400).json("Error: " + err));
+
+	// const movies = db.collection("movieranks").find().toArray();
+	// res.json(movies);
+	//if two movies have same id, add their score
+
+	// db.collections.movieranks.aggregate([
+	// 	{
+	// 		$group: {
+	// 			_id: "$movie1",
+	// 			score: { $sum: "$score" },
+	// 		},
+	// 	},
+	// 	{
+	// 		$sort: { score: -1 },
+	// 	},
+	// ]);
+	db.collection("movieranks")
+		.find()
+		.limit(5)
+		.sort({ score: -1 })
+		.toArray()
 		.then((movies) => res.json(movies))
 		.catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.route("/:id").get((req, res) => {
-	MovieRank.findById(req.params.id)
-		.then((movie) => res.json(movie))
-		.catch((err) => res.status(400).json("Error: " + err));
-});
+// router.route("/:id").get((req, res) => {
+// 	MovieRank.findById(req.params.id)
+// 		.then((movie) => res.json(movie))
+// 		.catch((err) => res.status(400).json("Error: " + err));
+// });
 
 router.route("/add").post((req, res) => {
-	const movie1 = req.body.movies.movie1;
-	const movie2 = req.body.movies.movie2;
-	const movie3 = req.body.movies.movie3;
-	const movie4 = req.body.movies.movie4;
-	const movie5 = req.body.movies.movie5;
+	let movie1 = req.body.movies.movie1;
+	let movie2 = req.body.movies.movie2;
+	let movie3 = req.body.movies.movie3;
+	let movie4 = req.body.movies.movie4;
+	let movie5 = req.body.movies.movie5;
 
-	const movieRank1 = { ...movie1, score: 10 };
-	const movieRank2 = { ...movie2, score: 8 };
-	const movieRank3 = { ...movie3, score: 6 };
-	const movieRank4 = { ...movie4, score: 4 };
-	const movieRank5 = { ...movie5, score: 2 };
+	movie1 = { ...movie1, score: 10 };
+	movie2 = { ...movie2, score: 8 };
+	movie3 = { ...movie3, score: 6 };
+	movie4 = { ...movie4, score: 4 };
+	movie5 = { ...movie5, score: 2 };
 
-	const db = mongoose.connection;
 	db.collection("movieranks").insertMany([
-		movieRank1,
-		movieRank2,
-		movieRank3,
-		movieRank4,
-		movieRank5,
+		movie1,
+		movie2,
+		movie3,
+		movie4,
+		movie5,
 	]);
 	res.json("Many Movie added!");
 });
