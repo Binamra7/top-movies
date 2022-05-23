@@ -1,6 +1,4 @@
-/** @format */
-
-import React, { ReactEventHandler, useState } from "react";
+import React, { ReactEventHandler, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Container } from "../../GlobalStyles";
 import { Input, Form, Label } from "./RateMoviesStyles";
@@ -8,9 +6,12 @@ import EnterMovies from "../../components/EnterMovies";
 import axios from "axios";
 
 const RateMovies = () => {
-	const sourceImg =
-		"https://image.tmdb.org/t/p/w500//pfte7wdMobMF4CVHuOxyu6oqeeA.jpg";
-	const titleMov = <h1>Add movie</h1>;
+	useEffect(() => {
+		if (!localStorage.getItem("user")) {
+			window.location.href = "/login";
+		}
+		document.title = "Rate Movies";
+	});
 	const movie: any = useSelector((state) => state);
 
 	const [valid, setValid] = useState(false);
@@ -31,12 +32,28 @@ const RateMovies = () => {
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
+		const user = {
+			name: "binamra",
+			id: "123123b",
+		};
 		checkValidity();
 		if (valid) {
-			console.log("submitted", movie);
-			axios.post("http://localhost:5000/api/movies/add", movie).then((res) => {
-				console.log("res", res);
-			});
+			const userMovies = new Array(0);
+			userMovies.push(movie.movies.movie1);
+			userMovies.push(movie.movies.movie2);
+			userMovies.push(movie.movies.movie3);
+			userMovies.push(movie.movies.movie4);
+			userMovies.push(movie.movies.movie5);
+			console.log("user movies: ", userMovies);
+			console.log("tyoe of usermovie", typeof userMovies);
+			axios
+				.post("/api/movies/add", { userMovies, user })
+				.then((res) => {
+					console.log("res", res);
+				})
+				.catch((err) => {
+					console.error(err);
+				});
 		} else {
 			console.log("not submitted");
 		}

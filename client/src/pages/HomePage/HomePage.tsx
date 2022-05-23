@@ -1,5 +1,3 @@
-/** @format */
-
 import MovieBox from "../../components/MovieBox";
 import { Container } from "../../GlobalStyles";
 import { HomePageContainer } from "./HomePageStyles";
@@ -36,7 +34,7 @@ const HomePage = () => {
 	]);
 
 	useEffect(() => {
-		axios.get("http://localhost:5000/api/movies").then((res) => {
+		axios.get("/api/movies").then((res) => {
 			console.log("res", res.data);
 			setMovies(res.data);
 		});

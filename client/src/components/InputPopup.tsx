@@ -27,9 +27,11 @@ const InputPopup: FC<props> = (props) => {
 	const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const QUERY_URL = API_URL + movieName;
+		console.log(QUERY_URL);
 		const res: any = await fetch(QUERY_URL).catch((err) => console.log(err));
 		const data = await res.json();
-		await setSearchResults(data.results);
+		console.log(data);
+		setSearchResults(data.results);
 		// console.log(QUERY_URL);
 		// console.log(data.results);
 	};
