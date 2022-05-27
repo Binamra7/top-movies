@@ -32,14 +32,11 @@ const InputPopup: FC<props> = (props) => {
 		const data = await res.json();
 		console.log(data);
 		setSearchResults(data.results);
-		// console.log(QUERY_URL);
-		// console.log(data.results);
 	};
 
 	const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
 		setMovieName(e.target.value);
 	};
-	// console.log("Search result: ", searchResults, searchResults.length);
 	return (
 		<MovieContainer>
 			<Form onSubmit={handleSearch}>

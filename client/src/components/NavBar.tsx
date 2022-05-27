@@ -1,6 +1,5 @@
-/** @format */
-
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
 	AuthContainer,
 	NavContainer,
@@ -9,20 +8,33 @@ import {
 } from "./NavBarStyles";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+
+type UserInfo = {
+	given_name: string;
+	sub: string;
+	picture: string;
+};
+
 function NavBar() {
-	let { user, isAuthenticated, loginWithPopup, loginWithRedirect, logout } =
-		useAuth0();
-	let profilePic, username,userId;
-	if (user === undefined) user = {};
-	if (user) {
-		localStorage.setItem("user", JSON.stringify(user));
-		profilePic = user.picture;
-		username=user.name;
-		userId=user.sub;
-	}
-	if (!isAuthenticated) {
-		localStorage.removeItem("user");
-	}
+	const dispatch = useDispatch();
+	const [User, setUser] = useState<UserInfo>({
+		given_name: "",
+		sub: "",
+		picture: "",
+	});
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+	useEffect(() => {
+		if (isAuthenticated) {
+			setIsLoggedIn(true);
+			setUser({
+				given_name: user?.given_name || "",
+				sub: user?.sub || "",
+				picture: user?.picture || "",
+			});
+		}
+	}, [isAuthenticated, user]);
+
 	return (
 		<>
 			<NavContainer>
@@ -30,13 +42,13 @@ function NavBar() {
 				<Link to="/movies">Rate Movies</Link>
 				<Link to="/about">About</Link>
 				<AuthContainer>
-					{!isAuthenticated && (
+					{!isLoggedIn && (
 						<button onClick={() => loginWithRedirect()}>Log in</button>
 					)}
-					{isAuthenticated && (
+					{isLoggedIn && (
 						<Profile>
-							<ProfilePic src={user.picture} alt="Profile" />
-							<p>{user.given_name}</p>
+							<ProfilePic src={User.picture} alt="Profile" />
+							<p>{User.given_name}</p>
 							<button onClick={() => logout()}>Log out</button>
 						</Profile>
 					)}
